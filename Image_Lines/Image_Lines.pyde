@@ -1,122 +1,138 @@
-def random_point():
-    global new_pixel
-    
-    black = False
-    
-    while(not black):
-        x = int(random(img.width))
-        y = int(random(img.height))
-
-        loc = x + y*(img.width)
+class scribbler():
+    def __init__(self, x0, y0, low_val, high_val):
+        self.x = x0
+        self.y = y0
+        self.loc = 0
         
-        pixel = img.pixels[loc]
+        self.min = low_val
+        self.max = high_val
+        average = (self.min + self.max)/2
         
-        if(pixel == color(0, 0, 0) and loc not in covered):
-            covered.append(loc)
-            return(x, y)
-            black == True
-            break
-      
-def local_point():
-    global old_pixel
+        self.thickness = .5-(self.max/500)
+        self.color = color(average, average, average)
+        
+        self.old_pixel = (self.x, self.y)
+        self.new_pixel = (self.x, self.y)
+        
+    def get_point(self, distance):
+        global old_pixel
     
-    black = False
-    distance = 5
-    c = 0
-    d = 0
-    
-    x1 = old_pixel[0]
-    y1 = old_pixel[1]
-    
-    new_xs = [x1 + distance, x1, x1 - distance]
-    new_ys = [y1 + distance, y1, y1 - distance]
-    
-    while(not black):
-        in_range = False
-        while(not in_range):
+        if distance != 0:
+            distance = distance
+            
+            x1 = self.old_pixel[0]
+            y1 = self.old_pixel[1]
+        
+            new_xs = [x1 + distance, x1, x1 - distance]
+            new_ys = [y1 + distance, y1, y1 - distance]
+            
             rx = int(random(len(new_xs)))
             ry = int(random(len(new_ys)))
             
             x = new_xs[rx]
             y = new_ys[ry]
-            
-            print(' ')
-            print('x: ' + str(x))
-            print('y: ' + str(y))
-            
-            loc = x + y*(img.width)
-            
-            if(0 <= loc < len(img.pixels)):
-                in_range = True
-                break
-            else:
-                in_rage = False
-
-        pixel = img.pixels[loc]
-        
-        if(pixel == color(0, 0, 0) and loc not in covered):
-            covered.append(loc)
-            return(x, y)
-            black == True
-            break
-            
         else:
-            black == False
-            c += 1
-            if(c > 4):
-                if(distance <= 100):
+            x = int(random(img.width))
+            y = int(random(img.height))
+            
+        return(x, y)
+    
+    def check_validity(self, loc):
+        global covered
+        
+        if(0 < loc <= len(img.pixels)):
+            try:
+                pixel = img.pixels[loc]
+            except IndexError:
+                return False
+            
+            black = (color(self.min, self.min, self.min) <= pixel <= color(self.max, self.max, self.max))
+            availible = (loc not in covered)
+            
+            if(black and availible):
+                return True
+            else:
+                return False
+    
+    def generate_coordinate(self):
+        global covered
+        global old_pixel
+        global new_pixel
+    
+        valid = False
+        v_loop = 0
+        distance = 10
+        d_loop = 0
+        
+        while(not valid):
+            pixel = self.get_point(distance)
+            
+            self.x = pixel[0]
+            self.y = pixel[1]
+            
+            self.loc = self.x + self.y*(img.width)
+            valid = self.check_validity(self.loc)
+            
+            v_loop += 1
+        
+            if((v_loop > 6) or (distance == 0)):
+                if(distance <= (img.width+img.height)/4):
                     distance += 1
                 else:
-                    distance = 1
-                    d += 1
-                if(d > 2):
-                    old_pixel = random_point()
-                    print(old_pixel)
-                    distance = 5
-                    
-                print(' ')
-                print('new distance: ' + str(distance))
-                print(' ')
-                c = 0
+                    if(d_loop < 1):
+                        distance = 10
+                        v_loop = 0
+                        d_loop += 1
+                    else:
+                        distance = 0
+                        v_loop = 0
+                        d_loop = 0                  
+                
+        covered.append(self.loc)
+        
+        return(self.x, self.y)
+        
+    def draw_line(self):
+        self.new_pixel = self.generate_coordinate()
 
-def generate_coordinate():
-    global old_pixel
-    
-    new_pixel = local_point()
-
-    x1 = old_pixel[0]
-    y1 = old_pixel[1]
-    x2 = new_pixel[0]
-    y2 = new_pixel[1]
-    
-    print('  ')
-    print(old_pixel, new_pixel)
-    
-    line(x1,y1,x2,y2)
-    
-    old_pixel = new_pixel
+        x1 = self.old_pixel[0]
+        y1 = self.old_pixel[1]
+        x2 = self.new_pixel[0]
+        y2 = self.new_pixel[1]
+        
+        strokeWeight(self.thickness)
+        stroke(self.color)
+        
+        line(x1,y1,x2,y2)
+        
+        self.old_pixel = self.new_pixel
 
 def setup():
-    global img
-    size(630, 630200)
-    img = loadImage("../Girl.jpg")
+    size(240, 350)
     background(255)
     
-    strokeWeight(1)
-    stroke(255, 255, 255)
-    
-    global old_pixel
-    old_pixel = (300, 300)
-    
-    global new_pixel
+    global img
+    img = loadImage("../Girl_2.jpg")
+    img.resize(img.width, img.height);
     
     global covered
     covered = []
     
+    global Scribblers
+    Scribblers = []
+    
+    for i in range(3):
+        color_min = i*50
+        color_max = (i+1) * 50
+        Scribblers.append(scribbler(img.width/2, img.height/2, color_min, color_max))
+    
 def draw():
-    image(img, 0, 0)
+    global Scribblers
+    
     loadPixels()
     img.loadPixels()
-    stroke(255, 255, 255)
-    generate_coordinate()
     
+    for i in range(len(Scribblers)):
+        Scribbler = Scribblers[i]
+        
+        Scribbler.draw_line()
