@@ -18,13 +18,13 @@ int[] y_vals = new int[1];
 ///////////////////  CUSTOMIZABILITY
 String path = "/Users/annabelle_strong/Documents/GitHub/Final-Project/Movie_Drawing/Media/Dancer.mp4"; // [Silhouette strongly recommended]
 
-int focus_color = color(RGB, 70, 140, 200); // Color to look for in video
+int focus_color = color(RGB, 0, 0, 0); // Color to look for in video
 int tolerance = 150; // Range from the focus color in which color will still be considered valid
 
-int num = 1000; // Number of "scribblers" (more --> faster, more dense)
+int num = 800; // Number of "scribblers" (more --> faster saturation, more dense)
 
 String type = "lines"; // "points" vs "lines" as a visualizer
-float stroke_thickness = .75; // thickness of lines or points (recommended: .5 - 1 for lines, 1.5 - 2 for points)
+float stroke_thickness = .5; // thickness of lines or points (recommended: .5 - 1 for lines, 1.5 - 2 for points)
 
 int distance = 7; // distance in between points (higher --> less dense for "points", longer lines for "lines"
 
