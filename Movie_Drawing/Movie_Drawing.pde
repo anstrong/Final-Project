@@ -2,8 +2,6 @@ import processing.video.*;
 import java.util.Arrays;
 /*********************************************************************************/
 // TODO
-// Github
-// OpenCV: Contour center
 // Video export
 // GUI
 // Test with other videos
@@ -17,9 +15,9 @@ int[] x_vals = new int[1];
 int[] y_vals = new int[1];
 
 ///////////////////  CUSTOMIZABILITY
-String path = "/Users/annabelle_strong/Documents/GitHub/Final-Project/Dancer.mp4"; // [Silhouette strongly recommended]
+String path = "/Users/annabelle_strong/Documents/GitHub/Final-Project/Movie_Drawing/Dancer.mp4"; // [Silhouette strongly recommended]
 
-int num = 800; // Number of "scribblers" (more --> faster, more dense)
+int num = 1600; // Number of "scribblers" (more --> faster, more dense)
 
 String type = "points"; // "points" vs "lines" as a visualizer
 int stroke_thickness = 1;
@@ -59,7 +57,13 @@ void setup() {
     int color_min = 0; // can base off of i for unique scribbler colors (best for low "num")
     int color_max = 10;
     
-    Scribblers[i] = new scribbler(width/2, height/2, color_min, color_max); // declare new iterations of scribbler, add to scribbler list
+    int a = (int)Math.pow(-1, i); // alternate between positive and negative values
+    int b = i%5; // return tp image origin after an increase or decrease of 100
+    
+    //int variation = (a * 25 * b); // vary the origin of each "scribbler" for fuller image; increase or decrease by 25 each time
+    int variation = 0;
+    
+    Scribblers[i] = new scribbler(width/2, height/2 + variation, color_min, color_max); // declare new iterations of scribbler, add to scribbler list
   }
 }
 
