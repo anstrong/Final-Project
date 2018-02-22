@@ -3,10 +3,6 @@ public class scribbler {
   private int y; // object current y-value
   private int loc; // object current location in pixel array
   
-  private int color_min; // color hue range low
-  private int color_max; // color hue range high
-  private int average; // average color hue
-  
   private int drawn_lines = 0; // iteration counter of "draw_line" function (for color-changing purposes)
   
   private float thickness; // stroke thickness
@@ -15,19 +11,14 @@ public class scribbler {
   private PVector old_pixel = new PVector(0,0); // old pixel coordinates
   private PVector new_pixel = new PVector(0,0); // latest pixel coordinates
   
-  public scribbler(int x0, int y0, int low_val, int high_val) {
+  public scribbler(int x0, int y0, color hue) {
     x = x0; // initial x
     y = y0; // initial y
     
     old_pixel = new PVector(x, y); // set "old" location to origin
     
-    color_min = low_val; // set inital color values
-    color_max = high_val;
-    average = low_val/high_val;
-    
-    thickness = stroke_thickness;
-    //thickness = 1;//.25-(color_max/500); // set initial thickness (can tie to grey shade)
-    shade = color(average, average, average); // set initial shade
+    thickness = stroke_thickness; // set line thickness or dot diameter
+    shade = hue; // set initial shade
   }  
   
   public PVector get_point(int distance) {
@@ -76,18 +67,23 @@ public class scribbler {
         return false;
       }
       
-      // translate returned value
-      int a = (pixel >> 24) & 0xFF;
-      int r = (pixel >> 16) & 0xFF;  // Faster way of getting red(argb)
-      int g = (pixel >> 8) & 0xFF;   // Faster way of getting green(argb)
-      int b = pixel & 0xFF;          // Faster way of getting blue(argb)
+      // translate returned pixel value
+      int ap = (pixel >> 24) & 0xFF;
+      int rp = (pixel >> 16) & 0xFF;  
+      int gp = (pixel >> 8) & 0xFF;   
+      int bp = pixel & 0xFF;          
       
-      pixel_color = color(r, g, b, a);
+      // translate focus color for comparison
+      int r = (focus_color >> 16) & 0xFF;  
+      int g = (focus_color >> 8) & 0xFF;   
+      int b = focus_color & 0xFF;          
       
-      // check to see if the pixel fits requirements
-      correct_color = ((color(color_min, color_min, color_min) <= pixel_color) && (pixel_color <= color(color_max, color_max, color_max)));
-      //correct_color = ((focus_color - color(RGB, 25, 25, 25)) <= pixel_color) && (pixel_color <= focus_color + color(RGB, 15, 15, 15));
-      //correct_color = pixel_color < color(255 - tolerance);
+      // compare colors and see if in range
+      boolean r_correct = (r - tolerance <= rp && rp <= r + tolerance);
+      boolean g_correct = (r - tolerance <= gp && gp <= g + tolerance);
+      boolean b_correct = (r - tolerance <= bp && bp <= b + tolerance);
+      
+      correct_color = r_correct && g_correct && b_correct;
       taken = Arrays.asList(covered).contains(loc);
             
       if(correct_color == true && taken == false)
@@ -184,7 +180,7 @@ public class scribbler {
     
     if(colored)
     {
-      shade = color(drawn_lines%(360 * colored_factor), 100, 100); // update shade (color change feature)
+      shade = color(drawn_lines%(360 * colored_factor), 100, 50); // update shade (color change feature)
     }
 
     stroke(shade); // update shade if necessary

@@ -1,11 +1,8 @@
-import g4p_controls.*;
 import com.hamoid.*;
 import processing.video.*;
 import java.util.Arrays;
 /*********************************************************************************/
 // TODO
-// Video export
-// GUI
 // Test with other videos
 // Ask Healey about speed/processing power/efficiency
 // Ask Healey about relative file path
@@ -21,22 +18,22 @@ int[] y_vals = new int[1];
 ///////////////////  CUSTOMIZABILITY
 String path = "/Users/annabelle_strong/Documents/GitHub/Final-Project/Movie_Drawing/Media/Dancer.mp4"; // [Silhouette strongly recommended]
 
-int focus_color = color(RGB, 0, 0, 0);
-int tolerance = 50;
+int focus_color = color(RGB, 70, 140, 200); // Color to look for in video
+int tolerance = 150; // Range from the focus color in which color will still be considered valid
 
-int num = 2000; // Number of "scribblers" (more --> faster, more dense)
+int num = 1000; // Number of "scribblers" (more --> faster, more dense)
 
 String type = "lines"; // "points" vs "lines" as a visualizer
-float stroke_thickness = .25;
+float stroke_thickness = .75; // thickness of lines or points (recommended: .5 - 1 for lines, 1.5 - 2 for points)
 
-int distance = 6; // distance in between points (higher --> less dense for "points", longer lines for "lines"
+int distance = 7; // distance in between points (higher --> less dense for "points", longer lines for "lines"
 
 boolean colored = false; // Black and white or color
 int colored_factor = 2; // graduality of color change (higher --> more gradual)
 //boolean individually_colored = false;
 
 int rate = 25; // frame rate (too low --> choppy, too high --> can't process)
-float speed = .15; //playback speed (slower --> denser visualizers)
+float speed = .1; //playback speed (slower --> denser visualizers)
 
 
 scribbler[] Scribblers = new scribbler[num]; // establish "scribbler" object
@@ -57,25 +54,20 @@ void setup() {
   
   mov.play(); // play video
   mov.volume(0); // neutralize possible audio
-  //mov.loop(); // loop video
  
   videoExport.startMovie();
   
   for(int i = 0; i < num; i++) // create "num" number of scribblers, give color range for each
   {
-    int color_min = 0; // can base off of i for unique scribbler colors (best for low "num")
-    int color_max = 10;
+    int y_var = 35; // define range from in which origins can be formed
+    int y_range = (int)random((height/2 - y_var), (height/2 + y_var));
     
-    int a = (int)Math.pow(-1, i); // alternate between positive and negative values
-    int b = i%5; // return tp image origin after an increase or decrease of 100
+    int x_var = 0;
+    int x_range = (int)random((width/2 - x_var), (width/2 + x_var)); 
     
-    //int variation = (a * 25 * b); // vary the origin of each "scribbler" for fuller image; increase or decrease by 25 each time
-    int variation = 0;
-    int range = 0;
-    int y_range = (int)random(height/2 + range, height/2 - range);
-    int x_range = (int)random(width/2 + range, width/2 - range);
+    color hue = color(HSB, 175, 100, 50); // define intial color
     
-    Scribblers[i] = new scribbler(x_range, y_range, color_min, color_max); // declare new iterations of scribbler, add to scribbler list
+    Scribblers[i] = new scribbler(x_range, y_range, hue); // declare new iterations of scribbler, add to scribbler list
   }
 }
 
