@@ -30,7 +30,5 @@ color (which I did in several forms, only to find that the net result is brown b
 to retry my original idea.
 
 ## Processing Part 3
-I translated the code to Java (a language with which I have no experience) so it could be compatible with OpenCV, and begam integrating
-my movie testing code from before (*Test>Processing>Movie_Processing*) with the new graphics. The results, after a couple hours 
-of debugging, was a choppy video of the sihouette from the file, just as I'd hoped. I soon added customizable variables in anticipation
-of a possible GUI, then looked into OpenCV once more for added shape-detection abilities.
+I translated the code to Java (a language with which I have no experience) so it could be compatible with OpenCV, and began integrating
+my movie testing code from before (*Test>Processing>Movie_Processing*) with the new graphics. The results, after hours of debugging, was a choppy video of the sihouette from the file, just as I'd hoped. 
