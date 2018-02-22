@@ -3,7 +3,7 @@
 ## Orginial goal
 The orginal idea was to have objects, created in a graphics simulator called VPython, gravitate towards and become a part of a moving shape.
 
-<i> see "sim.py" in Simulation folder</i>
+<i> see "sim.py" in "Simulator" folder</i>
 
 I wanted to use OpenCV to detect a sihouette in a video and use that information to determine when and where the objects should "stick"
 to the object.
