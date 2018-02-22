@@ -1,4 +1,4 @@
-
+import gab.opencv.*;
 import processing.video.*;
 Movie mov;
 

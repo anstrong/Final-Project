@@ -1,3 +1,5 @@
+import g4p_controls.*;
+import com.hamoid.*;
 import processing.video.*;
 import java.util.Arrays;
 /*********************************************************************************/
@@ -6,8 +8,10 @@ import java.util.Arrays;
 // GUI
 // Test with other videos
 // Ask Healey about speed/processing power/efficiency
+// Ask Healey about relative file path
 
 Movie mov;
+VideoExport videoExport;
 
 // Establish point lists
 int[] covered = new int[1];
@@ -15,17 +19,19 @@ int[] x_vals = new int[1];
 int[] y_vals = new int[1];
 
 ///////////////////  CUSTOMIZABILITY
-String path = "/Users/annabelle_strong/Documents/GitHub/Final-Project/Movie_Drawing/Dancer.mp4"; // [Silhouette strongly recommended]
+String path = "/Users/annabelle_strong/Documents/GitHub/Final-Project/Movie_Drawing/Media/Dancer.mp4"; // [Silhouette strongly recommended]
 
-int num = 1600; // Number of "scribblers" (more --> faster, more dense)
+int focus_color = color(RGB, 0, 0, 0);
+int tolerance = 50;
 
-String type = "points"; // "points" vs "lines" as a visualizer
-int stroke_thickness = 1;
+int num = 2000; // Number of "scribblers" (more --> faster, more dense)
 
-int distance = 5; // distance in between points (higher --> less dense for "points", longer lines for "lines"
-String concentration = "swarm"; // "swarm" vs "solid"; changes how frequently canvas is erased
+String type = "lines"; // "points" vs "lines" as a visualizer
+float stroke_thickness = .25;
 
-boolean colored = true; // Black and white or color
+int distance = 6; // distance in between points (higher --> less dense for "points", longer lines for "lines"
+
+boolean colored = false; // Black and white or color
 int colored_factor = 2; // graduality of color change (higher --> more gradual)
 //boolean individually_colored = false;
 
@@ -44,6 +50,7 @@ void setup() {
   colorMode(HSB); // set color mode: HSB (for one-value color changing)
   
   mov = new Movie(this, path); // create new iteration of Movie object
+  videoExport = new VideoExport(this);
   
   frameRate(rate); // set frame rate
   mov.speed(speed); // set video speed 
@@ -51,6 +58,8 @@ void setup() {
   mov.play(); // play video
   mov.volume(0); // neutralize possible audio
   //mov.loop(); // loop video
+ 
+  videoExport.startMovie();
   
   for(int i = 0; i < num; i++) // create "num" number of scribblers, give color range for each
   {
@@ -62,32 +71,35 @@ void setup() {
     
     //int variation = (a * 25 * b); // vary the origin of each "scribbler" for fuller image; increase or decrease by 25 each time
     int variation = 0;
+    int range = 0;
+    int y_range = (int)random(height/2 + range, height/2 - range);
+    int x_range = (int)random(width/2 + range, width/2 - range);
     
-    Scribblers[i] = new scribbler(width/2, height/2 + variation, color_min, color_max); // declare new iterations of scribbler, add to scribbler list
+    Scribblers[i] = new scribbler(x_range, y_range, color_min, color_max); // declare new iterations of scribbler, add to scribbler list
   }
 }
 
 void movieEvent(Movie mov) {
   mov.read(); // get frame
   mov.loadPixels(); // get frame pixels for analysis
-  
-  if(concentration == "solid")
-  {
-    background(255); // solid effect when up here
-  }
 }
 
 void draw() {
   loadPixels(); 
   
-  if(concentration == "swarm")
-  {
-    background(255);
-  }
+  background(255);
    
   for(int i = 0; i < Scribblers.length; i++) // loop through scribblers
   {
     scribbler scribbler_i = Scribblers[i];
     scribbler_i.draw_line(); // draw visualizers
+  }
+  videoExport.saveFrame();
+}
+
+void keyPressed() {
+  if (key == 'q') {
+    videoExport.endMovie();
+    exit();
   }
 }

@@ -60,7 +60,7 @@ public class scribbler {
     color pixel; // pixel value, returned from pixel array
     color pixel_color; // translated pixel color
     
-    boolean black; // whether or not pixel is black
+    boolean correct_color; // whether or not pixel is given color
     boolean taken;  // whether or not pixel has been covered before
     
     int loc = lx + ly*width; // calculate location in pixel array
@@ -81,14 +81,16 @@ public class scribbler {
       int r = (pixel >> 16) & 0xFF;  // Faster way of getting red(argb)
       int g = (pixel >> 8) & 0xFF;   // Faster way of getting green(argb)
       int b = pixel & 0xFF;          // Faster way of getting blue(argb)
-        
+      
       pixel_color = color(r, g, b, a);
       
       // check to see if the pixel fits requirements
-      black = ((color(color_min, color_min, color_min) <= pixel_color) && (pixel_color <= color(color_max, color_max, color_max)));
+      correct_color = ((color(color_min, color_min, color_min) <= pixel_color) && (pixel_color <= color(color_max, color_max, color_max)));
+      //correct_color = ((focus_color - color(RGB, 25, 25, 25)) <= pixel_color) && (pixel_color <= focus_color + color(RGB, 15, 15, 15));
+      //correct_color = pixel_color < color(255 - tolerance);
       taken = Arrays.asList(covered).contains(loc);
             
-      if(black == true && taken == false)
+      if(correct_color == true && taken == false)
       {
         return true;
       }
