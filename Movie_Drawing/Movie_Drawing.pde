@@ -17,14 +17,17 @@ int[] y_vals = new int[1];
 
 ///////////////////  CUSTOMIZABILITY
 String path = "/Users/annabelle_strong/Documents/GitHub/Final-Project/Movie_Drawing/Media/Dancer.mp4"; // [Silhouette strongly recommended]
+// Example videos: Dancer (main test video; nice result)
+//                 Fabric (cool, abstract swarming result) // switch focus_color to blue value
+//                 Doors (two "walls" of scribblers separating)
 
 int focus_color = color(RGB, 0, 0, 0); // Color to look for in video
-int tolerance = 150; // Range from the focus color in which color will still be considered valid
+int tolerance = 100; // Range from the focus color in which color will still be considered valid
 
 int num = 800; // Number of "scribblers" (more --> faster saturation, more dense)
 
-String type = "lines"; // "points" vs "lines" as a visualizer
-float stroke_thickness = .5; // thickness of lines or points (recommended: .5 - 1 for lines, 1.5 - 2 for points)
+String type = "points"; // "points" vs "lines" as a visualizer
+float stroke_thickness = 1.5; // thickness of lines or points (recommended: .5 - 1 for lines, 1.5 - 2 for points)
 
 int distance = 7; // distance in between points (higher --> less dense for "points", longer lines for "lines"
 
@@ -60,10 +63,12 @@ void setup() {
   for(int i = 0; i < num; i++) // create "num" number of scribblers, give color range for each
   {
     int y_var = 35; // define range from in which origins can be formed
-    int y_range = (int)random((height/2 - y_var), (height/2 + y_var));
+    int y_origin = height/2;
+    int y_range = (int)random((y_origin - y_var), (y_origin + y_var));
     
     int x_var = 0;
-    int x_range = (int)random((width/2 - x_var), (width/2 + x_var)); 
+    int x_origin = width/2;
+    int x_range = (int)random((x_origin - x_var), (x_origin + x_var)); 
     
     Scribblers[i] = new scribbler(x_range, y_range); // declare new iterations of scribbler, add to scribbler list
   }
