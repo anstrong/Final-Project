@@ -2,10 +2,6 @@ import com.hamoid.*;
 import processing.video.*;
 import java.util.Arrays;
 /*********************************************************************************/
-// TODO
-// Test with other videos
-// Ask Healey about speed/processing power/efficiency
-// Ask Healey about relative file path
 
 Movie mov;
 VideoExport videoExport;
@@ -16,7 +12,7 @@ int[] x_vals = new int[1];
 int[] y_vals = new int[1];
 
 ///////////////////  CUSTOMIZABILITY
-String path = "/Users/annabelle_strong/Documents/GitHub/Final-Project/Movie_Drawing/Media/Dancer.mp4"; // [Silhouette strongly recommended]
+String path = "Dancer.mp4"; // [Silhouette strongly recommended]
 // Example videos: Dancer (main test video; nice result)
 //                 Fabric (cool, abstract swarming result) // switch focus_color to blue value
 //                 Doors (two "walls" of scribblers separating)
@@ -24,7 +20,7 @@ String path = "/Users/annabelle_strong/Documents/GitHub/Final-Project/Movie_Draw
 int focus_color = color(RGB, 0, 0, 0); // Color to look for in video
 int tolerance = 100; // Range from the focus color in which color will still be considered valid
 
-int num = 800; // Number of "scribblers" (more --> faster saturation, more dense)
+int num = 200; // Number of "scribblers" (more --> faster saturation, more dense)
 
 String type = "points"; // "points" vs "lines" as a visualizer
 float stroke_thickness = 1.5; // thickness of lines or points (recommended: .5 - 1 for lines, 1.5 - 2 for points)
@@ -80,8 +76,6 @@ void movieEvent(Movie mov) {
 }
 
 void draw() {
-  loadPixels(); 
-  
   background(255);
    
   for(int i = 0; i < Scribblers.length; i++) // loop through scribblers
