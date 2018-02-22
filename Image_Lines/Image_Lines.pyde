@@ -8,7 +8,7 @@ class scribbler():
         self.max = high_val
         average = (self.min + self.max)/2
         
-        self.thickness = .5-(self.max/500)
+        self.thickness = .25-(self.max/500)
         self.color = color(average, average, average)
         
         self.old_pixel = (self.x, self.y)
@@ -32,8 +32,8 @@ class scribbler():
             x = new_xs[rx]
             y = new_ys[ry]
         else:
-            x = int(random(img.width))
-            y = int(random(img.height))
+            x = int(random(width))
+            y = int(random(height))
             
         return(x, y)
     
@@ -70,13 +70,13 @@ class scribbler():
             self.x = pixel[0]
             self.y = pixel[1]
             
-            self.loc = self.x + self.y*(img.width)
+            self.loc = self.x + self.y*(width)
             valid = self.check_validity(self.loc)
             
             v_loop += 1
         
             if((v_loop > 6) or (distance == 0)):
-                if(distance <= (img.width+img.height)/4):
+                if(distance <= (width+height)/4):
                     distance += 1
                 else:
                     if(d_loop < 1):
@@ -108,12 +108,16 @@ class scribbler():
         self.old_pixel = self.new_pixel
 
 def setup():
-    size(240, 350)
+    # 2224
+    # 1668
+
+    size((630/1), (630/1))
     background(255)
     
     global img
-    img = loadImage("../Girl_2.jpg")
-    img.resize(img.width, img.height);
+    img = loadImage("../Girl.jpg")
+    ratio = 1
+    img.resize(img.width/ratio, img.height/ratio);
     
     global covered
     covered = []
@@ -121,10 +125,14 @@ def setup():
     global Scribblers
     Scribblers = []
     
-    for i in range(3):
-        color_min = i*50
-        color_max = (i+1) * 50
-        Scribblers.append(scribbler(img.width/2, img.height/2, color_min, color_max))
+    color = False
+    
+    for i in range(5):
+        color_min = 0#i*50
+        color_max = 10#(i+1) * 50
+        Scribblers.append(scribbler(width/2, height/2, color_min, color_max))
+        
+    #Scribblers.append(scribbler(width/2, height/2, color(
     
 def draw():
     global Scribblers
@@ -136,3 +144,5 @@ def draw():
         Scribbler = Scribblers[i]
         
         Scribbler.draw_line()
+        
+        
