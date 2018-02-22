@@ -14,6 +14,70 @@
  * =========================================================
  */
 
+public void dropList1_click1(GDropList source, GEvent event) { //_CODE_:Visualizer:585181:
+  println("Visualizer - GDropList >> GEvent." + event + " @ " + millis());
+} //_CODE_:Visualizer:585181:
+
+public void slider1_change1(GSlider source, GEvent event) { //_CODE_:slider1:305524:
+  println("slider1 - GSlider >> GEvent." + event + " @ " + millis());
+} //_CODE_:slider1:305524:
+
+public void slider2_change1(GSlider source, GEvent event) { //_CODE_:slider2:882574:
+  println("slider2 - GSlider >> GEvent." + event + " @ " + millis());
+} //_CODE_:slider2:882574:
+
+public void textfield1_change1(GTextField source, GEvent event) { //_CODE_:textfield1:614635:
+  println("textfield1 - GTextField >> GEvent." + event + " @ " + millis());
+} //_CODE_:textfield1:614635:
+
+public void textfield2_change1(GTextField source, GEvent event) { //_CODE_:textfield2:555183:
+  println("textfield2 - GTextField >> GEvent." + event + " @ " + millis());
+} //_CODE_:textfield2:555183:
+
+public void textarea1_change1(GTextArea source, GEvent event) { //_CODE_:textarea1:480810:
+  println("textarea1 - GTextArea >> GEvent." + event + " @ " + millis());
+} //_CODE_:textarea1:480810:
+
+public void checkbox1_clicked1(GCheckbox source, GEvent event) { //_CODE_:checkbox1:344524:
+  println("checkbox1 - GCheckbox >> GEvent." + event + " @ " + millis());
+} //_CODE_:checkbox1:344524:
+
+public void knob1_turn1(GKnob source, GEvent event) { //_CODE_:knob1:621914:
+  println("knob1 - GKnob >> GEvent." + event + " @ " + millis());
+} //_CODE_:knob1:621914:
+
+public void dropList1_click2(GDropList source, GEvent event) { //_CODE_:dropList1:911060:
+  println("dropList1 - GDropList >> GEvent." + event + " @ " + millis());
+} //_CODE_:dropList1:911060:
+
+public void dropList2_click1(GDropList source, GEvent event) { //_CODE_:dropList2:363813:
+  println("dropList2 - GDropList >> GEvent." + event + " @ " + millis());
+} //_CODE_:dropList2:363813:
+
+public void textfield3_change1(GTextField source, GEvent event) { //_CODE_:textfield3:861425:
+  println("textfield3 - GTextField >> GEvent." + event + " @ " + millis());
+} //_CODE_:textfield3:861425:
+
+public void textfield4_change1(GTextField source, GEvent event) { //_CODE_:textfield4:715645:
+  println("textfield4 - GTextField >> GEvent." + event + " @ " + millis());
+} //_CODE_:textfield4:715645:
+
+public void textfield5_change1(GTextField source, GEvent event) { //_CODE_:textfield5:431930:
+  println("textfield5 - GTextField >> GEvent." + event + " @ " + millis());
+} //_CODE_:textfield5:431930:
+
+public void slider3_change1(GSlider source, GEvent event) { //_CODE_:slider3:312322:
+  println("slider3 - GSlider >> GEvent." + event + " @ " + millis());
+} //_CODE_:slider3:312322:
+
+public void button1_click1(GButton source, GEvent event) { //_CODE_:button1:869466:
+  println("button1 - GButton >> GEvent." + event + " @ " + millis());
+} //_CODE_:button1:869466:
+
+public void stick1_change1(GStick source, GEvent event) { //_CODE_:stick1:734796:
+  println("stick1 - GStick >> GEvent." + event + " @ " + millis());
+} //_CODE_:stick1:734796:
+
 
 
 // Create all the GUI controls. 
@@ -23,7 +87,136 @@ public void createGUI(){
   G4P.setGlobalColorScheme(GCScheme.BLUE_SCHEME);
   G4P.setCursor(ARROW);
   surface.setTitle("Sketch Window");
+  Visualizer = new GDropList(this, 30, 20, 108, 72, 2);
+  Visualizer.setItems(loadStrings("list_585181"), 0);
+  Visualizer.addEventHandler(this, "dropList1_click1");
+  slider1 = new GSlider(this, 170, 30, 100, 40, 10.0);
+  slider1.setLimits(0.5, 0.0, 1.0);
+  slider1.setNumberFormat(G4P.DECIMAL, 2);
+  slider1.setOpaque(false);
+  slider1.addEventHandler(this, "slider1_change1");
+  slider2 = new GSlider(this, 310, 30, 100, 40, 10.0);
+  slider2.setLimits(0.5, 0.0, 1.0);
+  slider2.setNumberFormat(G4P.DECIMAL, 2);
+  slider2.setOpaque(false);
+  slider2.addEventHandler(this, "slider2_change1");
+  textfield1 = new GTextField(this, 652, 162, 160, 30, G4P.SCROLLBARS_NONE);
+  textfield1.setOpaque(true);
+  textfield1.addEventHandler(this, "textfield1_change1");
+  textfield2 = new GTextField(this, 560, 350, 160, 30, G4P.SCROLLBARS_NONE);
+  textfield2.setOpaque(true);
+  textfield2.addEventHandler(this, "textfield2_change1");
+  label1 = new GLabel(this, 180, 20, 80, 20);
+  label1.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
+  label1.setText("Distance");
+  label1.setOpaque(false);
+  label2 = new GLabel(this, 320, 20, 80, 20);
+  label2.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
+  label2.setText("Rate");
+  label2.setOpaque(false);
+  textarea1 = new GTextArea(this, 370, 480, 160, 80, G4P.SCROLLBARS_NONE);
+  textarea1.setOpaque(true);
+  textarea1.addEventHandler(this, "textarea1_change1");
+  checkbox1 = new GCheckbox(this, 30, 60, 120, 20);
+  checkbox1.setIconAlign(GAlign.LEFT, GAlign.MIDDLE);
+  checkbox1.setText("Colored");
+  checkbox1.setTextBold();
+  checkbox1.setOpaque(false);
+  checkbox1.addEventHandler(this, "checkbox1_clicked1");
+  knob1 = new GKnob(this, 270, 90, 230, 210, 0.8);
+  knob1.setTurnRange(110, 70);
+  knob1.setTurnMode(GKnob.CTRL_HORIZONTAL);
+  knob1.setSensitivity(1);
+  knob1.setShowArcOnly(false);
+  knob1.setOverArcOnly(false);
+  knob1.setIncludeOverBezel(false);
+  knob1.setShowTrack(true);
+  knob1.setLimits(0.5, 0.0, 1.0);
+  knob1.setShowTicks(true);
+  knob1.setOpaque(false);
+  knob1.addEventHandler(this, "knob1_turn1");
+  label3 = new GLabel(this, 330, 300, 120, 20);
+  label3.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
+  label3.setText("Number of scribblers");
+  label3.setOpaque(false);
+  togGroup1 = new GToggleGroup();
+  dropList1 = new GDropList(this, 680, 230, 90, 80, 3);
+  dropList1.setItems(loadStrings("list_911060"), 0);
+  dropList1.addEventHandler(this, "dropList1_click2");
+  dropList2 = new GDropList(this, 670, 210, 90, 80, 3);
+  dropList2.setItems(loadStrings("list_363813"), 0);
+  dropList2.addEventHandler(this, "dropList2_click1");
+  textfield3 = new GTextField(this, 30, 170, 160, 30, G4P.SCROLLBARS_NONE);
+  textfield3.setPromptText("Input file name (w/ extension)");
+  textfield3.setOpaque(true);
+  textfield3.addEventHandler(this, "textfield3_change1");
+  textfield4 = new GTextField(this, 30, 210, 160, 30, G4P.SCROLLBARS_NONE);
+  textfield4.setPromptText("Output file name (w/o extension)");
+  textfield4.setOpaque(true);
+  textfield4.addEventHandler(this, "textfield4_change1");
+  label4 = new GLabel(this, 110, 440, 160, 20);
+  label4.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
+  label4.setText("(include extension)");
+  label4.setOpaque(false);
+  textfield5 = new GTextField(this, 270, 390, 160, 30, G4P.SCROLLBARS_NONE);
+  textfield5.setOpaque(true);
+  textfield5.addEventHandler(this, "textfield5_change1");
+  label5 = new GLabel(this, 380, 420, 160, 20);
+  label5.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
+  label5.setText("(without extension)");
+  label5.setOpaque(false);
+  label6 = new GLabel(this, 380, 400, 100, 20);
+  label6.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
+  label6.setText("Output file name");
+  label6.setTextBold();
+  label6.setOpaque(false);
+  label7 = new GLabel(this, 230, 390, 160, 20);
+  label7.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
+  label7.setText("Input file name");
+  label7.setTextBold();
+  label7.setOpaque(false);
+  slider3 = new GSlider(this, 450, 30, 100, 40, 10.0);
+  slider3.setLimits(0.5, 0.0, 1.0);
+  slider3.setNumberFormat(G4P.DECIMAL, 2);
+  slider3.setOpaque(false);
+  slider3.addEventHandler(this, "slider3_change1");
+  label8 = new GLabel(this, 460, 20, 80, 20);
+  label8.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
+  label8.setText("Speed");
+  label8.setOpaque(false);
+  button1 = new GButton(this, 60, 290, 80, 30);
+  button1.setText("RUN");
+  button1.addEventHandler(this, "button1_click1");
+  stick1 = new GStick(this, 460, 500, 60, 60);
+  stick1.setMode(G4P.X4);
+  stick1.setOpaque(false);
+  stick1.addEventHandler(this, "stick1_change1");
 }
 
 // Variable declarations 
 // autogenerated do not edit
+GDropList Visualizer; 
+GSlider slider1; 
+GSlider slider2; 
+GTextField textfield1; 
+GTextField textfield2; 
+GLabel label1; 
+GLabel label2; 
+GTextArea textarea1; 
+GCheckbox checkbox1; 
+GKnob knob1; 
+GLabel label3; 
+GToggleGroup togGroup1; 
+GDropList dropList1; 
+GDropList dropList2; 
+GTextField textfield3; 
+GTextField textfield4; 
+GLabel label4; 
+GTextField textfield5; 
+GLabel label5; 
+GLabel label6; 
+GLabel label7; 
+GSlider slider3; 
+GLabel label8; 
+GButton button1; 
+GStick stick1; 
