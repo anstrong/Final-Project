@@ -20,7 +20,7 @@ String path = "Dancer.mp4"; // [Silhouette strongly recommended]
 int focus_color = color(RGB, 0, 0, 0); // Color to look for in video
 int tolerance = 100; // Range from the focus color in which color will still be considered valid
 
-int num = 200; // Number of "scribblers" (more --> faster saturation, more dense)
+int num = 800; // Number of "scribblers" (more --> faster saturation, more dense)
 
 String type = "points"; // "points" vs "lines" as a visualizer
 float stroke_thickness = 1.5; // thickness of lines or points (recommended: .5 - 1 for lines, 1.5 - 2 for points)
