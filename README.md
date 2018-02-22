@@ -31,4 +31,4 @@ to retry my original idea.
 
 ## Processing Part 3
 I translated the code to Java (a language with which I have no experience) so it could be compatible with OpenCV, and began integrating
-my movie testing code from before (*Test>Processing>Movie_Processing*) with the new graphics. The results, after hours of debugging, was a choppy video of the sihouette from the file, just as I'd hoped. 
+my movie testing code from before (*Test>Processing>Movie_Processing*) with the new graphics. The results, after hours of debugging, was a choppy video of the sihouette from the file, just as I'd originally hoped. 
