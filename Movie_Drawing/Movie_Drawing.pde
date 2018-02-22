@@ -28,8 +28,8 @@ float stroke_thickness = .75; // thickness of lines or points (recommended: .5 -
 
 int distance = 7; // distance in between points (higher --> less dense for "points", longer lines for "lines"
 
-boolean colored = false; // Black and white or color
-int colored_factor = 2; // graduality of color change (higher --> more gradual)
+boolean colored = false; // Black and white or color-change (the color isn't very saturated however; not sure why)
+float colored_factor = 1; // graduality of color change (higher --> more gradual)
 //boolean individually_colored = false;
 
 int rate = 25; // frame rate (too low --> choppy, too high --> can't process)
@@ -65,9 +65,7 @@ void setup() {
     int x_var = 0;
     int x_range = (int)random((width/2 - x_var), (width/2 + x_var)); 
     
-    color hue = color(HSB, 175, 100, 50); // define intial color
-    
-    Scribblers[i] = new scribbler(x_range, y_range, hue); // declare new iterations of scribbler, add to scribbler list
+    Scribblers[i] = new scribbler(x_range, y_range); // declare new iterations of scribbler, add to scribbler list
   }
 }
 

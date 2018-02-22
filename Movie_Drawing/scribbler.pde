@@ -11,14 +11,14 @@ public class scribbler {
   private PVector old_pixel = new PVector(0,0); // old pixel coordinates
   private PVector new_pixel = new PVector(0,0); // latest pixel coordinates
   
-  public scribbler(int x0, int y0, color hue) {
+  public scribbler(int x0, int y0) {
     x = x0; // initial x
     y = y0; // initial y
     
     old_pixel = new PVector(x, y); // set "old" location to origin
     
     thickness = stroke_thickness; // set line thickness or dot diameter
-    shade = hue; // set initial shade
+    shade = color(HSB, 0, 0, 0); // set initial shade
   }  
   
   public PVector get_point(int distance) {
@@ -180,7 +180,7 @@ public class scribbler {
     
     if(colored)
     {
-      shade = color(drawn_lines%(360 * colored_factor), 100, 50); // update shade (color change feature)
+      shade = color(HSB, drawn_lines%(360 * colored_factor), 100, 50); // update shade (color change feature)
     }
 
     stroke(shade); // update shade if necessary
