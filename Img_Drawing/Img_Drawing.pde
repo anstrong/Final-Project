@@ -6,7 +6,7 @@ PImage img;
 int[] covered = new int[1];
 int[] x_vals = new int[1];
 int[] y_vals = new int[1];
-int num = 1000;
+int num = 10;
 
 scribbler[] Scribblers = new scribbler[num];
 
@@ -19,7 +19,7 @@ void setup() {
   strokeJoin(ROUND);
   strokeJoin(ROUND);
   
-  img = loadImage("/Users/annabelle_strong/Documents/GitHub/Final-Project/Media/Girl.jpg");
+  img = loadImage("Girl.jpg");
   
   for(int i = 0; i < num; i++)
   {
